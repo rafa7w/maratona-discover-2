@@ -1,9 +1,10 @@
 const express = require("express");
 const server = express();
 
-server.get("/", (req, res) => {
-        console.log("Entrei no index");
+// enable static services
+server.use(express.static("public"));
 
+server.get("/", (req, res) => {
         return res.sendFile(__dirname + "/views/index.html"); 
 });
 
