@@ -2,6 +2,7 @@ const express = require("express");
 const server = express();
 const routes = require("./routes");
 
+server.set("view engine", "ejs");
 
 // enable static services
 server.use(express.static("public"));
