@@ -91,7 +91,7 @@ const Job = {
 
                 save(req, res) {
                         // { name: "James", "daily-hours": "3.1", "total-hours": "3" }
-                        const lastId = Job.data[Job.data.length - 1]?.id || 1;
+                        const lastId = Job.data[Job.data.length - 1]?.id || 0;
 
                         Job.data.push({
                                 id: lastId + 1,
@@ -143,6 +143,15 @@ const Job = {
                         });
 
                         res.redirect("/job/" + jobId);
+                }, 
+
+                delete(req, res) {
+                        
+                        const jobId = req.params.id;
+                        
+                        Job.data = Job.data.filter(job => Number(job.id) !== Number(jobId));
+
+                        return res.redirect("/");
                 }
         },
         
@@ -176,6 +185,8 @@ routes.get("/profile", Profile.controllers.index);
 
 routes.post("/job", Job.controllers.save); 
 routes.post("/job/:id", Job.controllers.update); 
+routes.post("/job/delete/:id", Job.controllers.delete); 
 routes.post("/profile", Profile.controllers.update); 
+
 
 module.exports = routes; 
